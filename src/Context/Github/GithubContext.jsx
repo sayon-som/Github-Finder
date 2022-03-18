@@ -3,19 +3,39 @@ import {createContext,useState,useReducer} from 'react'
 import githubreducer from './GithubReducer';
 const githubContext=createContext();
 
-const url = "https://api.github.com";
+
 export const ContextProvider=({children})=>{
 //   const [users, setUsers] = useState([]);
-   
-const gettinguserres = async () => {
-  const res = await fetch(`https://api.github.com/users`);
 
-  const data = await res.json();
-  setUsers(data);
+//creating the initial state for the reducer
+//
+const initialstate={
+    users:[]
+}
+const [state,dispatch]=useReducer(githubreducer,initialstate);
+//
+
+   
+const gettinguserres = async (text) => {
+    const params= new URLSearchParams({
+        q:text
+    })
+  const res = await fetch(`https://api.github.com/search/users?${params}`);
+
+  const {items} = await res.json();
+//   setUsers(data);
+dispatch({
+    type:'GET_USERS',
+    payload:items,
+})
 };
+ const clearUser = () => {
+   dispatch({ type: "CLEAR_USERS" });
+ };
 return <githubContext.Provider value={{
-    users,
-    gettinguserres,
+    users:state.users,
+    gettinguserres, 
+    clearUser
     
 }}>
     {children}

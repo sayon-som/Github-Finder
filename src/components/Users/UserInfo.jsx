@@ -1,13 +1,13 @@
 import React, { } from 'react'
-import { useEffect , useContext} from 'react'
+import { useContext} from 'react'
 import UserItem from './UserItem';
 import githubContext from '../../Context/Github/GithubContext';
 const UserInfo = () => {
   const {users,gettinguserres}=useContext(githubContext);
-    //storing the users 
-    useEffect(()=>{
-gettinguserres();
-    },[])
+    //storing the users and testign to see if it works
+//     useEffect(()=>{
+// // gettinguserres();
+//     },[])
 
     
   return (
