@@ -1,8 +1,13 @@
 import {useState,useContext,useReducer} from 'react'
 import githubContext from '../../Context/Github/GithubContext';
 import githubreducer from '../../Context/Github/GithubReducer';
+import AlertContext from '../../Context/alert/AlertContext';
+import AlertReducer from '../../Context/alert/AlertReducers';
 //searchng logic 
 const UserSearch = () => {
+  //for the alert functionality
+  const {setAlert}=useContext(AlertContext);
+
       const initialstate = {
         users: [],
       };
@@ -20,7 +25,7 @@ const UserSearch = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         if(text===''){
-            alert("There is no text");
+            setAlert("There is no text in the input", "error");
         }
         else{
             //serching for the user

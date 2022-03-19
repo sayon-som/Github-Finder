@@ -10,6 +10,16 @@ const githubreducer=(state,action)=>{
 ...state,
 users:[]
             }
+        case 'GET_USER':
+            return{
+                ...state,
+                user:action.payload,
+            }
+        case 'GET_USERS_REPOS':
+            return {
+                ...state,
+                repos:action.payload
+            }
 
         default:
             return state

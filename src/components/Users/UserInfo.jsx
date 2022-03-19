@@ -12,7 +12,7 @@ const UserInfo = () => {
     
   return (
     <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:cols-3 md:grid-cols-2'>{users.map((user)=>(
-        <UserItem id={user.id} user={user}/>
+        <UserItem key={user.id} user={user}/>
     ))}</div>
   )
 }

@@ -10,7 +10,9 @@ export const ContextProvider=({children})=>{
 //creating the initial state for the reducer
 //
 const initialstate={
-    users:[]
+    users:[],
+    user:{},
+    repos:[]
 }
 const [state,dispatch]=useReducer(githubreducer,initialstate);
 //
@@ -29,13 +31,52 @@ dispatch({
     payload:items,
 })
 };
+
+//getting a single user
+const gettingsingleuserres = async (login) => {
+
+  const res = await fetch(`https://api.github.com/users/${login}`);
+if(res.status===404){
+    //redirecting the user if the user is not found 
+    window.location="/notfound"
+}else{
+  const data = await res.json();
+  //   setUsers(data);
+  
+  dispatch({
+    type: "GET_USER",
+    payload: data,
+  });
+}
+
+};
+
+//getting the user repos
+
+const gettinguserrepos = async (login) => {
+ 
+  const res = await fetch(`https://api.github.com/users?${login}/repos`);
+
+  const data = await res.json();
+  //   setUsers(data);
+  dispatch({
+    type: "GET_USERS_REPOS",
+    payload: data,
+  });
+};
+
  const clearUser = () => {
    dispatch({ type: "CLEAR_USERS" });
  };
 return <githubContext.Provider value={{
     users:state.users,
     gettinguserres, 
-    clearUser
+    clearUser,
+    user:state.user,
+    gettingsingleuserres,
+    repos:state.repos,
+    gettinguserrepos
+
     
 }}>
     {children}
