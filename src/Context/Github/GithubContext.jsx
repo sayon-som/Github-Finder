@@ -55,7 +55,7 @@ if(res.status===404){
 
 const gettinguserrepos = async (login) => {
  
-  const res = await fetch(`https://api.github.com/users?${login}/repos`);
+  const res = await fetch(`https://api.github.com/users/${login}/repos`);
 
   const data = await res.json();
   //   setUsers(data);

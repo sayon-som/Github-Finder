@@ -11,7 +11,7 @@ const User = () => {
 
   useEffect(()=>{
     gettingsingleuserres(params.login);
-    gettingsingleuserres(params.login);
+    gettinguserrepos(params.login);
   },[])
 //getting the user components
   const {
